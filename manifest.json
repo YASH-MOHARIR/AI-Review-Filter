@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Smart Review AI",
+  "version": "1.0",
+  "description": "AI-powered review filtering for Google Maps",
+  "permissions": ["scripting", "storage"],
+  "host_permissions": ["https://www.google.com/maps/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/maps/*"],
+      "js": ["dist/content.js"],
+      "css": ["dist/content.css"]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+/* Reset some styles for our container to ensure it looks distinct */
+#smart-review-ai-root {
+  position: relative;
+  z-index: 9999;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbar for the small filter list */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1; 
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; 
+}
