@@ -4,18 +4,22 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
+    outDir: 'dist',
+    emptyOutDir: true,
     rollupOptions: {
       input: {
-        content: 'index.tsx', // Entry point
+        content: 'index.tsx',
       },
       output: {
-        entryFileNames: 'dist/[name].js',
-        assetFileNames: 'dist/[name].[ext]', // For CSS
-        dir: '.', // Output in root so manifest finds it easily
+        entryFileNames: 'content.js',
+        assetFileNames: (assetInfo) => {
+           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+             return 'content.css';
+           }
+           return '[name].[ext]';
+        },
       },
     },
-    // Ensure we don't code-split, we need one file for the extension
-    cssCodeSplit: false,
   },
   define: {
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),

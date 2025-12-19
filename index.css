@@ -1,21 +1,207 @@
-/* Reset some styles for our container to ensure it looks distinct */
 #smart-review-ai-root {
-  position: relative;
-  z-index: 9999;
-  font-family: system-ui, -apple-system, sans-serif;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2147483647;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* Custom scrollbar for the small filter list */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+/* Panel Container */
+.sr-panel {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  color: #333;
+  font-size: 14px;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+
+/* Header */
+.sr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #cbd5e1; 
+
+.sr-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sr-icon-box {
+  background-color: #4f46e5;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sr-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0;
+}
+
+.sr-btn-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sr-btn-icon:hover {
+  background-color: #f3f4f6;
+}
+
+/* Stats Grid */
+.sr-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sr-stat-card {
+  background-color: #f9fafb;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #f3f4f6;
+  text-align: center;
+}
+
+.sr-stat-label {
+  font-size: 10px;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.sr-stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Filters */
+.sr-filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sr-filter-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+}
+
+.sr-clear-btn {
+  font-size: 10px;
+  color: #4f46e5;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.sr-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.sr-chip {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  color: #4b5563;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.sr-chip:hover:not(:disabled) {
+  border-color: #9ca3af;
+}
+
+.sr-chip.active {
+  background-color: #1f2937;
+  color: white;
+  border-color: #1f2937;
+}
+
+.sr-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f9fafb;
+}
+
+.sr-chip-count {
+  font-size: 9px;
+  padding: 1px 4px;
   border-radius: 4px;
+  background-color: #f3f4f6;
+  color: #6b7280;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8; 
+.sr-chip.active .sr-chip-count {
+  background-color: rgba(255,255,255,0.2);
+  color: white;
 }
+
+/* Badges injected into reviews */
+.sr-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.sr-badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+
+/* Progress */
+.sr-progress-bar {
+  height: 4px;
+  width: 100%;
+  background-color: #f3f4f6;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.sr-progress-fill {
+  height: 100%;
+  background-color: #4f46e5;
+  transition: width 0.3s ease;
+}
+
+/* Utilities */
+.animate-spin { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
