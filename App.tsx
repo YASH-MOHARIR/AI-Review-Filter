@@ -13,7 +13,7 @@ const SELECTORS = {
   DATE: '.rsqaWe'
 };
 
-// Helper for inline badge styles since we can't easily rely on Tailwind classes for dynamic colors in raw CSS
+// Helper for inline badge styles
 const getBadgeStyle = (category: ReviewCategory | string, type: 'category' | 'sentiment') => {
     if (type === 'sentiment') {
         if (category === Sentiment.POSITIVE) return { backgroundColor: '#f0fdf4', color: '#15803d', borderColor: '#bbf7d0' };
@@ -29,6 +29,18 @@ const getBadgeStyle = (category: ReviewCategory | string, type: 'category' | 'se
         case ReviewCategory.PRICE: return { backgroundColor: '#f3f4f6', color: '#1f2937', borderColor: '#e5e7eb' };
         default: return { backgroundColor: '#f3f4f6', color: '#374151', borderColor: '#e5e7eb' };
     }
+};
+
+// Robust hash function to generate IDs from text (safe for Emojis/Unicode)
+const generateReviewId = (text: string): string => {
+  let hash = 0;
+  if (text.length === 0) return '0';
+  for (let i = 0; i < text.length; i++) {
+    const char = text.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return Math.abs(hash).toString(36);
 };
 
 const ReviewBadges: React.FC<{ review: ReviewData }> = ({ review }) => {
@@ -187,11 +199,17 @@ const App: React.FC = () => {
         if (!textEl || !textEl.textContent) continue;
 
         const text = textEl.textContent;
-        const id = btoa(text.slice(0, 20) + text.length);
+        
+        // FIX: Use safe hash instead of btoa
+        const id = generateReviewId(text + htmlEl.querySelector(SELECTORS.AUTHOR)?.textContent);
 
         if (processedIdsRef.current.has(id)) {
             const existing = reviews.find(r => r.id === id);
-            if (existing) newReviews.push(existing);
+            if (existing) {
+               // Update DOM reference just in case re-render detached it
+               existing.domElement = htmlEl;
+               newReviews.push(existing);
+            }
             continue;
         }
 
