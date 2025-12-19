@@ -1,5 +1,5 @@
 {
-  "name": "Smart Review AI",
-  "description": "An intelligent review aggregator that uses Gemini to tag, categorize, and filter feedback, dynamically adjusting rating metrics based on user intent.",
+  "name": "Smart Review AI (Extension Demo)",
+  "description": "A simulation of a Chrome Extension that injects AI analysis and filtering into a Google Reviews page.",
   "requestFramePermissions": []
 }

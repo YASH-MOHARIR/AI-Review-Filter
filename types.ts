@@ -21,7 +21,10 @@ export interface ReviewData {
   // Fields populated by AI
   tags: ReviewCategory[];
   sentiment: Sentiment;
-  highlight: string; // A short summary snippet relevant to the dominant tag
+  highlight: string; 
+  // Reference to the actual DOM node (Simulating Chrome Extension access)
+  domElement: HTMLElement;
+  injectionPoint: HTMLElement;
 }
 
 export interface ReviewAnalysisResponse {

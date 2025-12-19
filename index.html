@@ -3,29 +3,123 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart Review AI</title>
+    <title>Google Maps - Review Simulation</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
       body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f3f4f6;
+        font-family: 'Roboto', sans-serif;
+        background-color: #ffffff;
+        color: #202124;
+        margin: 0;
+        padding: 0;
       }
+      /* Google Maps Mimic Styles */
+      .g-container { max-width: 800px; margin: 0 auto; background: white; min-height: 100vh; border-left: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; }
+      .g-header { padding: 16px 24px; border-bottom: 1px solid #e5e7eb; }
+      .g-title { font-size: 24px; font-weight: 400; }
+      .g-rating { font-size: 36px; font-weight: 500; color: #E7711B; display: flex; items-center; gap: 8px;}
+      .g-stars { color: #E7711B; font-size: 20px; letter-spacing: -2px; }
+      
+      /* The React App (Filter Bar) will mount here */
+      #extension-root { margin-bottom: 10px; }
+
+      /* Review Item Styles (Simulating Google DOM) */
+      .g-review { padding: 24px 0; margin: 0 24px; border-bottom: 1px solid #f0f0f0; display: block; }
+      .g-review.hidden-by-ai { display: none; }
+      .g-review-header { display: flex; align-items: center; margin-bottom: 12px; }
+      .g-avatar { width: 32px; height: 32px; background-color: #ddd; border-radius: 50%; margin-right: 16px; }
+      .g-name { font-weight: 700; font-size: 14px; }
+      .g-meta { color: #70757a; font-size: 12px; margin-left: 8px; }
+      .g-text { font-size: 14px; line-height: 1.5; color: #3c4043; }
+      
+      /* Injection Points for React Portals */
+      .ai-badge-injection-point { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
     "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
-    "recharts": "https://esm.sh/recharts@^3.6.0"
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3"
   }
 }
 </script>
 </head>
   <body>
-    <div id="root"></div>
+    <!-- Simulating the Google Maps Sidebar -->
+    <div class="g-container">
+      <div class="g-header">
+        <h1 class="g-title">Joe's Pizza & Burger</h1>
+        <div class="g-rating">
+          4.2 <span class="g-stars">★★★★☆</span> <span class="text-sm text-gray-500 font-normal">(1,240 reviews)</span>
+        </div>
+      </div>
+
+      <!-- We tell React to mount our Extension Bar here -->
+      <div id="root"></div>
+
+      <!-- Static HTML Reviews (The Extension will scrape these) -->
+      <div id="reviews-container">
+        
+        <!-- Review 1 -->
+        <div class="g-review" data-review-id="r1">
+          <div class="g-review-header">
+            <div class="g-avatar" style="background: #1e88e5"></div>
+            <div class="g-name">Sarah Jenkins</div>
+            <span class="g-meta">2 days ago</span>
+          </div>
+          <div class="g-text">
+            The pizza was absolutely divine! The crust was perfect and the cheese pull was real. However, the delivery took a bit longer than expected.
+          </div>
+          <!-- Extension will inject badges here -->
+          <div class="ai-badge-injection-point"></div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="g-review" data-review-id="r2">
+          <div class="g-review-header">
+            <div class="g-avatar" style="background: #e53935"></div>
+            <div class="g-name">Mike Ross</div>
+            <span class="g-meta">1 week ago</span>
+          </div>
+          <div class="g-text">
+            Delivery was a nightmare. The driver got lost and the food arrived cold. I called the restaurant and they were rude.
+          </div>
+          <div class="ai-badge-injection-point"></div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="g-review" data-review-id="r3">
+          <div class="g-review-header">
+            <div class="g-avatar" style="background: #43a047"></div>
+            <div class="g-name">Jessica Pearson</div>
+            <span class="g-meta">3 weeks ago</span>
+          </div>
+          <div class="g-text">
+            Great vibes inside. The lighting is dim and romantic. Food is okay, a bit pricey for the portion size.
+          </div>
+          <div class="ai-badge-injection-point"></div>
+        </div>
+        
+        <!-- Review 4 -->
+        <div class="g-review" data-review-id="r4">
+           <div class="g-review-header">
+            <div class="g-avatar" style="background: #fb8c00"></div>
+            <div class="g-name">Harvey Specter</div>
+            <span class="g-meta">1 month ago</span>
+          </div>
+          <div class="g-text">
+            Best burger in the city. No contest. Service was snappy too.
+          </div>
+          <div class="ai-badge-injection-point"></div>
+        </div>
+
+      </div>
+    </div>
   </body>
 </html>
